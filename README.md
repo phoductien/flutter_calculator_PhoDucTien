@@ -69,7 +69,6 @@ UI matches 100% the color palette, spacing, and typography from the Figma design
 
 🇻🇳 Bản Tiếng Việt
 🔥 Tính năng
-
 Thực hiện các phép tính cơ bản: + - × ÷
 
 Đổi dấu số (±)
