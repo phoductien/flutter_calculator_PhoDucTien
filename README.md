@@ -40,7 +40,9 @@ Dart
 
 📸 Screenshots
 
-![Uploading Screenshot 2025-11-20 105836.png…]()
+
+<img width="311" height="703" alt="Screenshot 2025-11-20 105836" src="https://github.com/user-attachments/assets/8e132395-7c95-4fba-b9ca-056a54ceaee3" />
+
 
 	
 	
