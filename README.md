@@ -48,9 +48,12 @@ Dart
 	
 🚀 How to Run
 
-git clone https://github.com/phoductien/flutter_calculator_PhoDucTIen
-cd flutter_calculator_PhoDucTIen
+git clone https://github.com/phoductien/flutter_calculator_PhoDucTien
+
+cd flutter_calculator_PhoDucTien
+
 flutter pub get
+
 flutter run
 
 🔍 Additional Notes
