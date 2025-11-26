@@ -1,5 +1,7 @@
 📱 Advanced Mobile Calculator App – Chapter 3
+
 Tác giả: Phó Đức Tiến – TDMU
+
 Mô tả: Ứng dụng máy tính nâng cao (Advanced Mobile Calculator) được xây dựng bằng Flutter, hỗ trợ nhiều chế độ tính toán: Basic, Scientific, Programmer, với giao diện hiện đại, chuyển theme Dark/Light, lưu lịch sử, cài đặt tuỳ chỉnh và test unit.
 
 📌 Tổng quan
