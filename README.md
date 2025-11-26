@@ -6,7 +6,8 @@ Mô tả: Ứng dụng máy tính nâng cao (Advanced Mobile Calculator) đượ
 
 📸 Screenshot:
 
-<img width="1080" height="2400" alt="Screenshot_1764160049" src="https://github.com/user-attachments/assets/37918f6e-925d-498e-b036-aa4933c1cf15" />
+<img width="1080" height="2400" alt="Screenshot_1764163966" src="https://github.com/user-attachments/assets/acc36eb9-f621-4763-99f8-45601cc05843" />
+
 
 
 
