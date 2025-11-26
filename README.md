@@ -5,6 +5,7 @@ Tác giả: Phó Đức Tiến – TDMU
 Mô tả: Ứng dụng máy tính nâng cao (Advanced Mobile Calculator) được xây dựng bằng Flutter, hỗ trợ nhiều chế độ tính toán: Basic, Scientific, Programmer, với giao diện hiện đại, chuyển theme Dark/Light, lưu lịch sử, cài đặt tuỳ chỉnh và test unit.
 
 📸 Screenshot:
+
 <img width="311" height="703" alt="Screenshot 2025-11-20 105836" src="https://github.com/user-attachments/assets/1f65e601-c4b9-4854-8ea8-92327630f376" />
 
 
