@@ -1,33 +1,20 @@
+// lib/models/calculator_mode.dart
+// Định nghĩa các chế độ máy tính
+
 enum CalculatorMode {
-  basic,
-  scientific,
-  programmer,
+  basic,        // Standard
+  scientific,   // Scientific
+  programmer,   // Programmer
 }
 
-extension ModeIndex on CalculatorMode {
-  int get indexValue {
-    switch (this) {
-      case CalculatorMode.basic:
-        return 0;
-      case CalculatorMode.scientific:
-        return 1;
-      case CalculatorMode.programmer:
-        return 2;
-    }
-  }
-}
+// (tuỳ chọn) tiện cho việc lấy index / từ index
+extension CalculatorModeExt on CalculatorMode {
+  int get indexValue => index;
 
-extension CalculatorModeExtension on CalculatorMode {
-  static CalculatorMode fromIndex(int index) {
-    switch (index) {
-      case 0:
-        return CalculatorMode.basic;
-      case 1:
-        return CalculatorMode.scientific;
-      case 2:
-        return CalculatorMode.programmer;
-      default:
-        return CalculatorMode.basic;
+  static CalculatorMode fromIndex(int i) {
+    if (i < 0 || i >= CalculatorMode.values.length) {
+      return CalculatorMode.basic;
     }
+    return CalculatorMode.values[i];
   }
 }

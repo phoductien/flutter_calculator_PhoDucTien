@@ -6,12 +6,11 @@ import '../providers/history_provider.dart';
 
 import '../widgets/display_area.dart';
 import '../widgets/button_grid.dart';
-import '../widgets/mode_selector.dart';
 
 import '../utils/basic_layout.dart';
 import '../utils/scientific_layout.dart';
 import '../utils/programmer_layout.dart';
-import '../models/calculator_mode.dart';
+import '../models/calculator_mode.dart'; 
 
 class CalculatorScreen extends StatelessWidget {
   const CalculatorScreen({super.key});
@@ -21,18 +20,33 @@ class CalculatorScreen extends StatelessWidget {
     final calc = Provider.of<CalculatorProvider>(context);
     final history = Provider.of<HistoryProvider>(context);
 
-    // Chọn layout theo mode
-    final layout = switch (calc.mode) {
-      CalculatorMode.basic => basicModeLayout,
-      CalculatorMode.scientific => scientificModeLayout,
-      CalculatorMode.programmer => programmerModeLayout,
-    };
+    List<List<String>> layout;
+
+    switch (calc.mode) {
+      case CalculatorMode.basic:
+        layout = basicModeLayout;
+        break;
+      case CalculatorMode.scientific:
+        layout = scientificModeLayout;
+        break;
+      case CalculatorMode.programmer:
+        layout = programmerModeLayout;
+        break;
+      default:
+        layout = basicModeLayout;
+    }
 
     return Scaffold(
+      drawer: _buildDrawer(context, calc),  // ⬅ THÊM MENU NÀY
+      appBar: AppBar(
+        title: const Text("Advanced Calculator"),
+        centerTitle: false,
+      ),
+
       body: SafeArea(
         child: Column(
           children: [
-            // Hiển thị biểu thức + kết quả
+            // Display
             Padding(
               padding: const EdgeInsets.all(24),
               child: DisplayArea(
@@ -42,22 +56,7 @@ class CalculatorScreen extends StatelessWidget {
               ),
             ),
 
-            // Chọn chế độ Basic / Sci / Programmer
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: ModeSelector(
-                currentMode: calc.mode.indexValue,
-                onModeChanged: (modeIndex) {
-                  calc.toggleMode(
-                    CalculatorModeExtension.fromIndex(modeIndex),
-                  );
-                },
-              ),
-            ),
-
-            const SizedBox(height: 12),
-
-            // Lưới nút tính toán
+            // Nút layout
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -86,28 +85,79 @@ class CalculatorScreen extends StatelessWidget {
                         calc.toggleSign();
                         break;
 
-                      case "sin":
-                      case "cos":
-                      case "tan":
-                      case "ln":
-                      case "log":
-                      case "√":
-                      case "x²":
-                      case "x^y":
-                      case "π":
-                      case "e":
-                        calc.addScientificFunction(value);
-                        break;
-
                       default:
                         calc.addToExpression(value);
                     }
                   },
                 ),
               ),
-            )
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  /// Drawer Menu giống Windows Calculator
+  Widget _buildDrawer(BuildContext context, CalculatorProvider calc) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(color: Color(0xFF1E1E1E)),
+            child: Text("Calculator Modes",
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),
+
+          ListTile(
+            leading: const Icon(Icons.calculate),
+            title: const Text("Standard"),
+            selected: calc.mode == CalculatorMode.basic,
+            onTap: () {
+              calc.toggleMode(CalculatorMode.basic);
+              Navigator.pop(context);
+            },
+          ),
+
+          ListTile(
+            leading: const Icon(Icons.science),
+            title: const Text("Scientific"),
+            selected: calc.mode == CalculatorMode.scientific,
+            onTap: () {
+              calc.toggleMode(CalculatorMode.scientific);
+              Navigator.pop(context);
+            },
+          ),
+
+          ListTile(
+            leading: const Icon(Icons.code),
+            title: const Text("Programmer"),
+            selected: calc.mode == CalculatorMode.programmer,
+            onTap: () {
+              calc.toggleMode(CalculatorMode.programmer);
+              Navigator.pop(context);
+            },
+          ),
+
+          const Divider(),
+
+          ListTile(
+            leading: const Icon(Icons.history),
+            title: const Text("History"),
+            onTap: () {
+              Navigator.pushNamed(context, "/history");
+            },
+          ),
+
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text("Settings"),
+            onTap: () {
+              Navigator.pushNamed(context, "/settings");
+            },
+          ),
+        ],
       ),
     );
   }
