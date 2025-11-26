@@ -1,52 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/calculator_provider.dart';
-import '../widgets/display_area.dart';
-import '../widgets/button_grid.dart';
-import '../widgets/app_drawer.dart';
-
 import '../models/calculator_mode.dart';
+
+import '../providers/calculator_provider.dart';
+import '../providers/history_provider.dart';
 
 import '../utils/basic_layout.dart';
 import '../utils/scientific_layout.dart';
 import '../utils/programmer_layout.dart';
+
+import '../widgets/display_area.dart';
+import '../widgets/button_grid.dart';
+import '../widgets/mode_selector.dart';
 
 class CalculatorScreen extends StatelessWidget {
   const CalculatorScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final calc = Provider.of<CalculatorProvider>(context);
+    final calc = context.watch<CalculatorProvider>();
+    final history = context.read<HistoryProvider>();
 
-    // Select layout based on mode
-    final layout = switch (calc.mode) {
-      CalculatorMode.basic => basicModeLayout,
-      CalculatorMode.scientific => scientificModeLayout,
-      CalculatorMode.programmer => programmerModeLayout,
-    };
+    List<List<String>> layout;
 
-    return Scaffold(
-      drawer: const AppDrawer(),
+    switch (calc.mode) {
+      case CalculatorMode.basic:
+        layout = basicModeLayout;
+        break;
+      case CalculatorMode.scientific:
+        layout = scientificModeLayout;
+        break;
+      case CalculatorMode.programmer:
+        layout = programmerModeLayout;
+        break;
+    }
 
-      appBar: AppBar(
-        title: Text(switch (calc.mode) {
-          CalculatorMode.basic => "Standard Calculator",
-          CalculatorMode.scientific => "Scientific Calculator",
-          CalculatorMode.programmer => "Programmer Calculator",
-        }),
-      ),
-
-      body: Column(
+    return SafeArea(
+      child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(20),
             child: DisplayArea(
               expression: calc.expression,
               result: calc.result,
               error: calc.errorMessage,
             ),
           ),
+
+          ModeSelector(
+            currentMode: calc.mode.index,
+            onModeChanged: (m) => calc.setMode(CalculatorMode.values[m]),
+          ),
+
+          const SizedBox(height: 18),
 
           Expanded(
             child: Padding(
@@ -57,6 +64,7 @@ class CalculatorScreen extends StatelessWidget {
                   switch (value) {
                     case "=":
                       calc.calculate();
+                      history.addHistory(calc.expression, calc.result);
                       break;
 
                     case "C":
@@ -75,6 +83,19 @@ class CalculatorScreen extends StatelessWidget {
                       calc.toggleSign();
                       break;
 
+                    case "sin":
+                    case "cos":
+                    case "tan":
+                    case "ln":
+                    case "log":
+                    case "√":
+                    case "x²":
+                    case "x^y":
+                    case "π":
+                    case "e":
+                      calc.addScientificFunction(value);
+                      break;
+
                     default:
                       calc.addToExpression(value);
                   }
@@ -87,3 +108,4 @@ class CalculatorScreen extends StatelessWidget {
     );
   }
 }
+

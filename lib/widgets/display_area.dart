@@ -14,51 +14,34 @@ class DisplayArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        color: Theme.of(context).colorScheme.surface.withOpacity(0.1),
-      ),
+    return SizedBox(
+      width: double.infinity,
+      height: 180,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          // Biểu thức (scroll ngang khi dài)
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            reverse: true,
-            child: Text(
-              expression,
-              style: const TextStyle(
-                fontSize: 22,
-                color: Colors.white70,
-              ),
+          Text(
+            expression,
+            style: const TextStyle(
+              fontSize: 32,
+              color: Colors.white60,
             ),
           ),
-          const SizedBox(height: 8),
-
-          // Kết quả
+          const SizedBox(height: 6),
           Text(
             result,
             style: const TextStyle(
-              fontSize: 36,
+              fontSize: 48,
+              fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontWeight: FontWeight.w600,
             ),
           ),
-
-          // Thông báo lỗi
           if (error.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Text(
-                error,
-                style: const TextStyle(
-                  color: Colors.redAccent,
-                  fontSize: 16,
-                ),
-              ),
-            )
+            Text(
+              error,
+              style: const TextStyle(color: Colors.redAccent),
+            ),
         ],
       ),
     );

@@ -1,19 +1,28 @@
-// Định nghĩa các chế độ máy tính
-
+// enum chế độ máy tính: Basic / Scientific / Programmer
 enum CalculatorMode {
-  basic,       // Standard
-  scientific,  // Scientific
-  programmer,  // Programmer
+  basic,
+  scientific,
+  programmer,
 }
 
-// Extension tiện dùng index nếu cần
+// Extension thêm index và chuyển đổi
 extension CalculatorModeExt on CalculatorMode {
-  int get indexValue => index;
+  int get index => indexOf[this] ?? 0;
+
+  static const indexOf = {
+    CalculatorMode.basic: 0,
+    CalculatorMode.scientific: 1,
+    CalculatorMode.programmer: 2,
+  };
 
   static CalculatorMode fromIndex(int i) {
-    if (i < 0 || i >= CalculatorMode.values.length) {
-      return CalculatorMode.basic;
+    switch (i) {
+      case 1:
+        return CalculatorMode.scientific;
+      case 2:
+        return CalculatorMode.programmer;
+      default:
+        return CalculatorMode.basic;
     }
-    return CalculatorMode.values[i];
   }
 }

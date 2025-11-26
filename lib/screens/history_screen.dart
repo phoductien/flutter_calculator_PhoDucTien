@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/history_provider.dart';
 
 class HistoryScreen extends StatelessWidget {
@@ -8,42 +7,21 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final history = Provider.of<HistoryProvider>(context);
+    final history = context.watch<HistoryProvider>().history;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("History"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: () {
-              history.clearHistory();
-            },
-          )
-        ],
-      ),
+      appBar: AppBar(title: const Text("History")),
 
-      body: history.history.isEmpty
-          ? const Center(
-              child: Text(
-                "No History",
-                style: TextStyle(fontSize: 18, color: Colors.grey),
-              ),
-            )
+      body: history.isEmpty
+          ? const Center(child: Text("No history yet"))
           : ListView.builder(
-              itemCount: history.history.length,
+              itemCount: history.length,
               itemBuilder: (context, i) {
-                final item = history.history[i];
+                final h = history[i];
+
                 return ListTile(
-                  title: Text(item.expression),
-                  subtitle: Text(item.timestamp.toString()),
-                  trailing: Text(
-                    item.result,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  title: Text(h.expression),
+                  subtitle: Text("= ${h.result}"),
                 );
               },
             ),
