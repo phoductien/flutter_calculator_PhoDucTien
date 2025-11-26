@@ -120,8 +120,8 @@ Advanced Mobile Calculator là một ứng dụng Flutter đa nền tảng đư�
 ### Bước 1: Clone repository
 
 ```bash
-git clone https://github.com/yourname/flutter_advanced_calculator_yourname.git
-cd flutter_advanced_calculator_yourname
+git clone https://github.com/phoductien/flutter_calculator_PhoDucTien.git
+cd flutter_calculator_PhoDucTien
 ```
 
 > Thay `yourname` bằng tên GitHub của bạn.
@@ -340,17 +340,3 @@ Kiểm tra:
 * Upload lên hệ thống + ghi chú các tính năng thêm, khó khăn, coverage test.
 
 ---
-
-Nếu bạn muốn, mình có thể giúp **chuyển luôn đoạn này thành `README.md`** hoặc viết dạng **comment trong `main.dart`** như:
-
-```dart
-// Advanced Mobile Calculator - Chapter 3
-// [dán nội dung mô tả ở trên vào đây dưới dạng comment]
-void main() {}
-```
-
-Hoặc bạn bảo:
-
-> “viết README.md luôn”
-
-mình sẽ format lại đúng Markdown cho GitHub.
