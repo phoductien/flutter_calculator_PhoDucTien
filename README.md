@@ -126,7 +126,6 @@ git clone https://github.com/phoductien/flutter_calculator_PhoDucTien.git
 cd flutter_calculator_PhoDucTien
 ```
 
-> Thay `yourname` bằng tên GitHub của bạn.
 
 ### Bước 2: Cài dependencies
 
