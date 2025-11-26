@@ -1,10 +1,3 @@
-Ok, mình hiểu rồi: bạn muốn một **bản mô tả dự án** kiểu giống cái “IoT Classroom Mobile App - Demo Chapter 4.2” nhưng dành cho **Advanced Mobile Calculator – Chapter 3**, dùng để bỏ vào `main.dart` hoặc README (thực chất nội dung này chuẩn là README.md, nhưng bạn có thể dùng ở đâu cũng được).
-
-Dưới đây là bản **viết lại đầy đủ, đã chỉnh cho đúng project hiện tại** 👇
-(Bạn có thể dùng làm README.md hoặc comment lớn trong main.dart)
-
----
-
 ## 📱 Advanced Mobile Calculator App – Chapter 3
 
 **Tác giả:** *[Điền tên bạn]* – TDMU
