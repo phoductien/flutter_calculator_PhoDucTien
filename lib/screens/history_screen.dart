@@ -15,10 +15,10 @@ class HistoryScreen extends StatelessWidget {
         title: const Text("History"),
         actions: [
           IconButton(
+            icon: const Icon(Icons.delete),
             onPressed: () {
               history.clearHistory();
             },
-            icon: const Icon(Icons.delete),
           )
         ],
       ),
@@ -26,19 +26,23 @@ class HistoryScreen extends StatelessWidget {
       body: history.history.isEmpty
           ? const Center(
               child: Text(
-                "No history yet",
-                style: TextStyle(fontSize: 18),
+                "No History",
+                style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
             )
           : ListView.builder(
               itemCount: history.history.length,
-              itemBuilder: (context, index) {
-                final item = history.history[index];
+              itemBuilder: (context, i) {
+                final item = history.history[i];
                 return ListTile(
                   title: Text(item.expression),
-                  subtitle: Text(item.result),
+                  subtitle: Text(item.timestamp.toString()),
                   trailing: Text(
-                    item.timestamp.toIso8601String().substring(11, 19),
+                    item.result,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 );
               },

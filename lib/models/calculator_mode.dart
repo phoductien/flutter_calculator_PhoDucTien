@@ -1,13 +1,12 @@
-// lib/models/calculator_mode.dart
 // Định nghĩa các chế độ máy tính
 
 enum CalculatorMode {
-  basic,        // Standard
-  scientific,   // Scientific
-  programmer,   // Programmer
+  basic,       // Standard
+  scientific,  // Scientific
+  programmer,  // Programmer
 }
 
-// (tuỳ chọn) tiện cho việc lấy index / từ index
+// Extension tiện dùng index nếu cần
 extension CalculatorModeExt on CalculatorMode {
   int get indexValue => index;
 

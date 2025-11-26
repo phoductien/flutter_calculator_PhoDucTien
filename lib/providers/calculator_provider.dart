@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import '../models/calculator_mode.dart';
-import '../utils/calculator_logic.dart';
 import '../utils/expression_parser.dart';
+import '../utils/calculator_logic.dart';
 
 enum AngleMode { degrees, radians }
 
 class CalculatorProvider extends ChangeNotifier {
-  String _expression = "";
-  String _result = "0";
+  String _expression = '';
+  String _result = '0';
+  String _errorMessage = '';
 
   CalculatorMode _mode = CalculatorMode.basic;
   AngleMode _angleMode = AngleMode.degrees;
@@ -17,19 +18,45 @@ class CalculatorProvider extends ChangeNotifier {
 
   String get expression => _expression;
   String get result => _result;
+  String get errorMessage => _errorMessage;
 
   CalculatorMode get mode => _mode;
   AngleMode get angleMode => _angleMode;
   bool get hasMemory => _hasMemory;
 
-  void addToExpression(String v) {
-    _expression += v;
+  // ================================
+  // Expression input
+  // ================================
+  void addToExpression(String value) {
+    _expression += value;
     notifyListeners();
   }
 
+  // ================================
+  // Calculate result
+  // ================================
+  void calculate() {
+    if (_expression.isEmpty) return;
+
+    try {
+      final parser = ExpressionParser(angleMode: _angleMode);
+      final num res = parser.evaluate(_expression);
+      _result = res.toString();
+      _errorMessage = '';
+    } catch (_) {
+      _result = "0";
+      _errorMessage = "Invalid Expression";
+    }
+    notifyListeners();
+  }
+
+  // ================================
+  // Clear
+  // ================================
   void clear() {
-    _expression = "";
-    _result = "0";
+    _expression = '';
+    _result = '0';
+    _errorMessage = '';
     notifyListeners();
   }
 
@@ -38,30 +65,25 @@ class CalculatorProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ================================
+  // Sign toggle
+  // ================================
   void toggleSign() {
     _expression = CalculatorLogic.toggleSign(_expression);
     notifyListeners();
   }
 
+  // ================================
+  // Percentage
+  // ================================
   void addPercentage() {
     _expression = CalculatorLogic.percent(_expression);
     notifyListeners();
   }
 
-  void calculate() {
-    if (_expression.isEmpty) return;
-
-    try {
-      final parser = ExpressionParser(angleMode: _angleMode);
-      final res = parser.evaluate(_expression);
-      _result = res.toString();
-    } catch (_) {
-      _result = "Error";
-    }
-
-    notifyListeners();
-  }
-
+  // ================================
+  // Scientific functions
+  // ================================
   void addScientificFunction(String func) {
     switch (func) {
       case "sin":
@@ -98,16 +120,25 @@ class CalculatorProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleMode(CalculatorMode newMode) {
-    _mode = newMode;
+  // ================================
+  // Mode switcher
+  // ================================
+  void setMode(CalculatorMode mode) {
+    _mode = mode;
     notifyListeners();
   }
 
+  // ================================
+  // Angle mode DEG / RAD
+  // ================================
   void setAngleMode(AngleMode mode) {
     _angleMode = mode;
     notifyListeners();
   }
 
+  // ================================
+  // Memory: M+, M-, MR, MC
+  // ================================
   void memoryAdd() {
     _memory += double.tryParse(_result) ?? 0;
     _hasMemory = true;
